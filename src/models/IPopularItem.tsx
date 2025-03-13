@@ -1,6 +1,6 @@
-export interface ICategory {
+export interface IPopularItem {
     id: number;
-    name: string;
+    title: string;
     image_path: string;
     on_stop: boolean;
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import {IModal} from "../../models/IModal.ts";
 
-const EditCategoryModal: React.FC<IModal> = ({showModal, setShowModal}) => {
+const AddPopularItemModal: React.FC<IModal> = ({showModal, setShowModal}) => {
     return (
         <div onClick={() => setShowModal(false)} className={`modal__background ${showModal ? "active" : ""}`}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <div className={`modal__header`}>
-                    <h2>Редактировать категорию</h2>
+                    <h2>Добавить популярный товар</h2>
                     <button className={'close__button'} onClick={() => setShowModal(false)}>
                         <svg xmlns="http://www.w3.org/2000/svg" height={'30px'} width={'30px'} fill="none"
                              viewBox="0 0 24 24" stroke-width="1.5" stroke="black">
@@ -21,10 +21,10 @@ const EditCategoryModal: React.FC<IModal> = ({showModal, setShowModal}) => {
                             <input type="text" id={'name'} name={'name'} placeholder={'Название'}/>
                         </div>
                         <div className={'input__container'}>
-                            <label htmlFor="image">Фото</label>
-                            <input type="file" id={'image'} name={'image'}/>
+                            <label htmlFor="video">Видео</label>
+                            <input type="file" id={'video'} name={'video'}/>
                         </div>
-                        <button type={'submit'} className={'submit__button'}>Сохранить</button>
+                        <button type={'submit'} className={'submit__button'}>Добавить</button>
                     </div>
                 </form>
             </div>
@@ -32,4 +32,4 @@ const EditCategoryModal: React.FC<IModal> = ({showModal, setShowModal}) => {
     );
 };
 
-export default EditCategoryModal;
+export default AddPopularItemModal;
