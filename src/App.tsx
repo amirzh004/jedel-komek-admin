@@ -1,8 +1,7 @@
 // src/App.tsx
-import React, {useState} from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import Home from './pages/Home.tsx';
 import Categories from "./pages/Categories.tsx";
 import Items from "./pages/Items.tsx";
 import Carousel from "./pages/Carousel.tsx";
@@ -20,8 +19,13 @@ import DeleteCategoryModal from "./components/modals/DeleteCategoryModal.tsx";
 import DeleteCarouselModal from "./components/modals/DeleteCarouselModal.tsx";
 import DeleteItemModal from "./components/modals/DeleteItemModal.tsx";
 import DeletePopularItemModal from "./components/modals/DeletePopularItemModal.tsx";
+import Login from "./pages/Login.tsx";
 
-const App: React.FC = () => {
+// Create a wrapper component to use useLocation inside Router
+const AppContent: React.FC = () => {
+    const location = useLocation();
+
+    // Define your modal state variables
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
     const [showAddCarouselModal, setShowAddCarouselModal] = useState(false);
     const [showAddItemModal, setShowAddItemModal] = useState(false);
@@ -35,20 +39,100 @@ const App: React.FC = () => {
     const [showDeletePopularItemModal, setShowDeletePopularItemModal] = useState(false);
 
     return (
-        <Router>
-            <div className={'wrapper'}>
-                <NavBar />
-                <div className={'main__content'}>
+        <div className={location.pathname !== "/" ? `wrapper` : `form__wrapper`}>
+            {/* Render NavBar only if not on the login page */}
+            {location.pathname !== "/" && <NavBar />}
+            {location.pathname !== "/" ? (
+                <div className="main__content">
                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/carousel" element={<Carousel setShowDeleteModal={setShowDeleteCarouselModal} setShowAddModal={setShowAddCarouselModal} />} />
-                        <Route path="/popular-items" element={<PopularItems setShowAddModal={setShowAddPopularItemModal} setShowDeleteModal={setShowDeletePopularItemModal} setShowEditModal={setShowEditPopularItemModal} />} />
-                        <Route path="/texts" element={<Texts />} />
-                        <Route path="/categories" element={<Categories setShowEditModal={setShowEditCategoryModal} setShowDeleteModal={setShowDeleteCategoryModal} setShowAddModal={setShowAddCategoryModal} />} />
-                        <Route path="/items" element={<Items setShowEditModal={setShowEditItemModal} setShowDeleteModal={setShowDeleteItemModal} setShowAddModal={setShowAddItemModal} />} />
+                        <Route path="/" element={<Login />} />
+                        <Route
+                            path="/admin/categories"
+                            element={
+                                <Categories
+                                    setShowEditModal={setShowEditCategoryModal}
+                                    setShowDeleteModal={setShowDeleteCategoryModal}
+                                    setShowAddModal={setShowAddCategoryModal}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/admin/carousel"
+                            element={
+                                <Carousel
+                                    setShowDeleteModal={setShowDeleteCarouselModal}
+                                    setShowAddModal={setShowAddCarouselModal}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/admin/popular-items"
+                            element={
+                                <PopularItems
+                                    setShowAddModal={setShowAddPopularItemModal}
+                                    setShowDeleteModal={setShowDeletePopularItemModal}
+                                    setShowEditModal={setShowEditPopularItemModal}
+                                />
+                            }
+                        />
+                        <Route path="/admin/texts" element={<Texts />} />
+                        <Route
+                            path="/admin/items"
+                            element={
+                                <Items
+                                    setShowEditModal={setShowEditItemModal}
+                                    setShowDeleteModal={setShowDeleteItemModal}
+                                    setShowAddModal={setShowAddItemModal}
+                                />
+                            }
+                        />
                     </Routes>
                 </div>
-            </div>
+            ) : (
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route
+                        path="/admin/categories"
+                        element={
+                            <Categories
+                                setShowEditModal={setShowEditCategoryModal}
+                                setShowDeleteModal={setShowDeleteCategoryModal}
+                                setShowAddModal={setShowAddCategoryModal}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/admin/carousel"
+                        element={
+                            <Carousel
+                                setShowDeleteModal={setShowDeleteCarouselModal}
+                                setShowAddModal={setShowAddCarouselModal}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/admin/popular-items"
+                        element={
+                            <PopularItems
+                                setShowAddModal={setShowAddPopularItemModal}
+                                setShowDeleteModal={setShowDeletePopularItemModal}
+                                setShowEditModal={setShowEditPopularItemModal}
+                            />
+                        }
+                    />
+                    <Route path="/admin/texts" element={<Texts />} />
+                    <Route
+                        path="/admin/items"
+                        element={
+                            <Items
+                                setShowEditModal={setShowEditItemModal}
+                                setShowDeleteModal={setShowDeleteItemModal}
+                                setShowAddModal={setShowAddItemModal}
+                            />
+                        }
+                    />
+                </Routes>
+            )}
             {/* Modals */}
             <AddCategoryModal showModal={showAddCategoryModal} setShowModal={setShowAddCategoryModal} />
             <AddCarouselModal showModal={showAddCarouselModal} setShowModal={setShowAddCarouselModal} />
@@ -63,6 +147,14 @@ const App: React.FC = () => {
             <DeleteCarouselModal showModal={showDeleteCarouselModal} setShowModal={setShowDeleteCarouselModal} />
             <DeleteItemModal showModal={showDeleteItemModal} setShowModal={setShowDeleteItemModal} />
             <DeletePopularItemModal showModal={showDeletePopularItemModal} setShowModal={setShowDeletePopularItemModal} />
+        </div>
+    );
+};
+
+const App: React.FC = () => {
+    return (
+        <Router>
+            <AppContent />
         </Router>
     );
 };

@@ -21,26 +21,23 @@ const NavBar: React.FC = () => {
 
                 <ul className={'list'}>
                     <li className={'item'}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/">Главная</NavLink>
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"}
+                                 to="/admin/categories">Категории</NavLink>
                     </li>
                     <li className={'item'}>
                         <NavLink className={({isActive}) => isActive ? "link__active" : "link"}
-                                 to="/categories">Категории</NavLink>
+                                 to="/admin/items">Товары</NavLink>
                     </li>
                     <li className={'item'}>
                         <NavLink className={({isActive}) => isActive ? "link__active" : "link"}
-                                 to="/items">Товары</NavLink>
+                                 to="/admin/carousel">Карусель</NavLink>
                     </li>
                     <li className={'item'}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"}
-                                 to="/carousel">Карусель</NavLink>
-                    </li>
-                    <li className={'item'}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/popular-items">Популярные
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/popular-items">Популярные
                             товары</NavLink>
                     </li>
                     <li className={'item'}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/texts">Текста и
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/texts">Текста и
                             ссылки</NavLink>
                     </li>
                 </ul>
@@ -55,26 +52,23 @@ const NavBar: React.FC = () => {
             <div className={`menu__list ${isOpenMenu ? 'active' : ''}`}>
                 <ul className={'m__list'}>
                     <li className={'item'} onClick={() => setOpenMenu(false)}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/">Главная</NavLink>
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"}
+                                 to="/admin/categories">Категории</NavLink>
                     </li>
                     <li className={'item'} onClick={() => setOpenMenu(false)}>
                         <NavLink className={({isActive}) => isActive ? "link__active" : "link"}
-                                 to="/categories">Категории</NavLink>
+                                 to="/admin/items">Товары</NavLink>
                     </li>
                     <li className={'item'} onClick={() => setOpenMenu(false)}>
                         <NavLink className={({isActive}) => isActive ? "link__active" : "link"}
-                                 to="/items">Товары</NavLink>
+                                 to="/admin/carousel">Карусель</NavLink>
                     </li>
                     <li className={'item'} onClick={() => setOpenMenu(false)}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"}
-                                 to="/carousel">Карусель</NavLink>
-                    </li>
-                    <li className={'item'} onClick={() => setOpenMenu(false)}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/popular-items">Популярные
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/popular-items">Популярные
                             товары</NavLink>
                     </li>
                     <li className={'item'} onClick={() => setOpenMenu(false)}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/texts">Текста и
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/texts">Текста и
                             ссылки</NavLink>
                     </li>
                     <br/>
