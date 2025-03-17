@@ -14,7 +14,7 @@ const Login: React.FC = () => {
                             <input type="text" id={'login'} name={'login'} placeholder={'Логин'}/>
                         </div>
                         <div className={'input__container'}>
-                            <label htmlFor="name">Пароль</label>
+                            <label htmlFor="password">Пароль</label>
                             <input type="text" id={'password'} name={'password'} placeholder={'Пароль'}/>
                         </div>
                         <button type={'submit'} className={'submit__button'}>Войти</button>
