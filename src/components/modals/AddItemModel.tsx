@@ -1,7 +1,57 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {IModal} from "../../models/IModal.ts";
+import {createItem} from "../../api/api.tsx";
 
-const AddItemModel: React.FC<IModal> = ({showModal, setShowModal}) => {
+const AddItemModel: React.FC<IModal & {categoryId: number}> = ({showModal, setShowModal, refresh, setRefresh, categoryId}) => {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [image1, setImage1] = useState<File | null>(null);
+    const [image2, setImage2] = useState<File | null>(null);
+    const [images, setImages] = useState<File[] | []>([]);
+    const [error, setError] = useState<string | null>(null);
+
+    const handleImageChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setImage1(e.target.files[0]);
+        }
+    };
+
+    const handleImageChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setImage2(e.target.files[0]);
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('category_id', categoryId.toString());
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('price', price);
+        if (image1 && image2) {
+            setImages([image1, image2]);
+            formData.append('images', images);
+        } else if (image1) {
+            formData.append('images', images);
+        } else if (image2) {
+            formData.append('images', images);
+        }
+
+        try {
+            await createItem(formData);
+            formData.forEach((value, key) => {
+                console.log(`${key}:`, value);
+            });
+            setShowModal(false);
+            setRefresh(refresh + 1);
+        } catch (error) {
+            console.error('Error editing item:', error);
+            setError('Ошибка добавления товара');
+        }
+    };
+
     return (
         <div onClick={() => setShowModal(false)} className={`modal__background ${showModal ? "active" : ""}`}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -14,28 +64,29 @@ const AddItemModel: React.FC<IModal> = ({showModal, setShowModal}) => {
                         </svg>
                     </button>
                 </div>
-                <form action="">
+                <form onSubmit={handleSubmit}>
                     <div className="modal__body">
                         <div className={'input__container'}>
-                            <label htmlFor="name">Название</label>
-                            <input type="text" id={'name'} name={'name'} placeholder={'Название'}/>
+                            <label htmlFor="title">Название</label>
+                            <input type="text" id={'title'} name={'title'} value={title} onChange={(e) => setTitle(e.target.value)} placeholder={'Название'}/>
                         </div>
                         <div className={'input__container'}>
                             <label htmlFor="description">Описание</label>
-                            <input type="text" id={'description'} name={'description'} placeholder={'Описание'}/>
+                            <input type="text" id={'description'} name={'description'} value={description} onChange={(e) => setDescription(e.target.value)} placeholder={'Описание'}/>
                         </div>
                         <div className={'input__container'}>
                             <label htmlFor="price">Цена</label>
-                            <input type="text" id={'price'} name={'price'} placeholder={'Цена'}/>
+                            <input type="text" id={'price'} name={'price'} value={price} onChange={(e) => setPrice(e.target.value)} placeholder={'Цена'}/>
                         </div>
                         <div className={'input__container'}>
                             <label htmlFor="first_image">Фото 1</label>
-                            <input type="file" id={'first_image'} name={'first_image'}/>
+                            <input type="file" id={'first_image'} onChange={handleImageChange1} name={'first_image'}/>
                         </div>
                         <div className={'input__container'}>
                             <label htmlFor="second_image">Фото 2</label>
-                            <input type="file" id={'second_image'} name={'second_image'}/>
+                            <input type="file" id={'second_image'} onChange={handleImageChange2} name={'second_image'}/>
                         </div>
+                        {error && <p className="error">{error}</p>}
                         <button type={'submit'} className={'submit__button'}>Добавить</button>
                     </div>
                 </form>

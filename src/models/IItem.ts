@@ -4,6 +4,6 @@ export interface IItem {
     description: string;
     price: string;
     category_id: number;
-    image_path: string;
+    images: string[];
     // on_stop: boolean;
 }

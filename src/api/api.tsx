@@ -1,9 +1,11 @@
 import apiClient from './axiosConfig.js';
-import {ICategory} from "../models/ICategory.ts";
-import {IItem} from "../models/IItem.ts";
-import {ICarousel} from "../models/ICarousel.ts";
-import {IPopularItems} from "../models/IPopularItems.ts";
-import {ISocialLink} from "../models/ISocialLink.ts";
+import {ILogin} from "../pages/Login.tsx";
+
+// TODO: Login
+export const login = async (data: ILogin) => {
+    const response = await apiClient.post('/admin/login', data);
+    return response.data;
+};
 
 // TODO: GET Requests
 // 1. Get All Categories
@@ -20,7 +22,7 @@ export const fetchItems = async () => {
 
 // 3. Get All Items by Category
 export const fetchItemsByCategoryId = async (id: number) => {
-    const response = await apiClient.get(`/items/${id}`);
+    const response = await apiClient.get(`/itemsbycategory/${id}`);
     return response.data;
 };
 
@@ -36,13 +38,13 @@ export const fetchPopularItems = async () => {
     return response.data;
 };
 
-// 6. Get Home Texts
+// 6. Get Home HomeTexts
 export const fetchHomeTexts = async () => {
     const response = await apiClient.get('/hometexts');
     return response.data;
 };
 
-// 7. Get Footer Texts
+// 7. Get Footer HomeTexts
 export const fetchFooterTexts = async () => {
     const response = await apiClient.get('/footertexts');
     return response.data;
@@ -57,31 +59,31 @@ export const fetchSocialLinks = async () => {
 
 // TODO: POST Requests
 // 1. Create Category
-export const createCategory = async (data: ICategory) => {
+export const createCategory = async (data: FormData) => {
     const response = await apiClient.post('/categories', data);
     return response.data;
 };
 
 // 2. Create Item
-export const createItem = async (data: IItem) => {
+export const createItem = async (data: FormData) => {
     const response = await apiClient.post('/items', data);
     return response.data;
 };
 
 // 3. Create Banner
-export const createBanner = async (data: ICarousel) => {
+export const createBanner = async (data: FormData) => {
     const response = await apiClient.post('/banners', data);
     return response.data;
 };
 
 // 4. Create Popular Item
-export const createPopularItem = async (data: IPopularItems) => {
+export const createPopularItem = async (data: FormData) => {
     const response = await apiClient.post('/popular-items', data);
     return response.data;
 };
 
 // 5. Create Social Links
-export const createSocialLink = async (data: ISocialLink) => {
+export const createSocialLink = async (data: FormData) => {
     const response = await apiClient.post('/social-links', data);
     return response.data;
 };
@@ -89,43 +91,43 @@ export const createSocialLink = async (data: ISocialLink) => {
 
 // TODO: PUT Requests
 // 1. Edit Category
-export const editCategory = async (id: number, data: ICategory) => {
+export const editCategory = async (id: number, data: FormData) => {
     const response = await apiClient.put(`/categories/${id}`, data);
     return response.data;
 };
 
 // 2. Edit Item
-export const editItem = async (id: number, data: IItem) => {
+export const editItem = async (id: number, data: FormData) => {
     const response = await apiClient.put(`/items/${id}`, data);
     return response.data;
 };
 
 // 3. Edit Banner
-export const editBanner = async (id: number, data: ICarousel) => {
+export const editBanner = async (id: number, data: FormData) => {
     const response = await apiClient.put(`/banners/${id}`, data);
     return response.data;
 };
 
 // 4. Edit Popular Item
-export const editPopularItem = async (id: number, data: IPopularItems) => {
+export const editPopularItem = async (id: number, data: FormData) => {
     const response = await apiClient.put(`/popular-items/${id}`, data);
     return response.data;
 };
 
 // 5. Edit Social Links
-export const editSocialLink = async (id: number, data: ISocialLink) => {
+export const editSocialLink = async (id: number, data: FormData) => {
     const response = await apiClient.put(`/social-links/${id}`, data);
     return response.data;
 };
 
-// 6. Edit Home Texts
-export const editHomeTexts = async (id: number, data: IPopularItems) => {
+// 6. Edit Home HomeTexts
+export const editHomeTexts = async (id: number, data: FormData) => {
     const response = await apiClient.put(`/hometexts/${id}`, data);
     return response.data;
 };
 
-// 7. Edit Footer Texts
-export const editFooterTexts = async (id: number, data: ISocialLink) => {
+// 7. Edit Footer HomeTexts
+export const editFooterTexts = async (id: number, data: FormData) => {
     const response = await apiClient.put(`/footertexts/${id}`, data);
     return response.data;
 };

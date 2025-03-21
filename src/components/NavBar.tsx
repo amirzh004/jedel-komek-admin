@@ -37,8 +37,13 @@ const NavBar: React.FC = () => {
                             товары</NavLink>
                     </li>
                     <li className={'item'}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/texts">Текста и
-                            ссылки</NavLink>
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/hometexts">Текста Заголовка</NavLink>
+                    </li>
+                    <li className={'item'}>
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/footertexts">Текста Контактов</NavLink>
+                    </li>
+                    <li className={'item'}>
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/sociallinks">Ссылки на соц. сети</NavLink>
                     </li>
                 </ul>
 
@@ -68,8 +73,13 @@ const NavBar: React.FC = () => {
                             товары</NavLink>
                     </li>
                     <li className={'item'} onClick={() => setOpenMenu(false)}>
-                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/texts">Текста и
-                            ссылки</NavLink>
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/hometexts">Текста Заголовка</NavLink>
+                    </li>
+                    <li className={'item'} onClick={() => setOpenMenu(false)}>
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/footertexts">Текста Контактов</NavLink>
+                    </li>
+                    <li className={'item'} onClick={() => setOpenMenu(false)}>
+                        <NavLink className={({isActive}) => isActive ? "link__active" : "link"} to="/admin/sociallinks">Ссылки на соц. сети</NavLink>
                     </li>
                     <br/>
                     <li className={'item'} onClick={() => setOpenMenu(false)}>

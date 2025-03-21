@@ -1,28 +1,35 @@
-import React, {useState} from 'react';
-import {IModal} from '../../models/IModal';
-import {createCategory} from "../../api/api.tsx";
+import React, {useEffect, useState} from 'react';
+import {editSocialLink} from "../../api/api.tsx";
+import {IModal} from "../../models/IModal.ts";
+import {ISocialLink} from "../../models/ISocialLink.ts";
 
-const AddCategoryModal: React.FC<IModal> = ({showModal, setShowModal, refresh, setRefresh}) => {
-    const [name, setName] = useState('');
-    const [image, setImage] = useState<File | null>(null);
+const EditSocialLinkModal: React.FC<IModal & {id: number, data: ISocialLink}> = ({showModal, setShowModal, refresh, setRefresh, data, id}) => {
+    const [link, setLink] = useState('');
+    const [icon, setIcon] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (data) {
+            setLink(data.link);
+        }
+    }, [data]);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setImage(e.target.files[0]);
+            setIcon(e.target.files[0]);
         }
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('name', name);
-        if (image) {
-            formData.append('image', image);
+        formData.append('link', link);
+        if (icon) {
+            formData.append('icon', icon);
         }
 
         try {
-            await createCategory(formData);
+            await editSocialLink(id, formData);
             formData.forEach((value, key) => {
                 console.log(`${key}:`, value);
             });
@@ -38,7 +45,7 @@ const AddCategoryModal: React.FC<IModal> = ({showModal, setShowModal, refresh, s
         <div onClick={() => setShowModal(false)} className={`modal__background ${showModal ? "active" : ""}`}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal__header">
-                    <h2>Редактировать категорию</h2>
+                    <h2>Редактировать ссылку</h2>
                     <button className="close__button" onClick={() => setShowModal(false)}>
                         <svg xmlns="http://www.w3.org/2000/svg" height="30px" width="30px" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -48,17 +55,17 @@ const AddCategoryModal: React.FC<IModal> = ({showModal, setShowModal, refresh, s
                 <form onSubmit={handleSubmit}>
                     <div className="modal__body">
                         <div className="input__container">
-                            <label htmlFor="name">Название</label>
-                            <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Название" required />
+                            <label htmlFor="link">Ссылка</label>
+                            <input type="text" id="link" value={link} onChange={(e) => setLink(e.target.value)} placeholder="Ссылка" required />
                         </div>
                         <div className="input__container">
-                            <label htmlFor="image">Фото</label>
+                            <label htmlFor="icon">Иконка</label>
                             <div className="current-image">
-                                <input type="file" id="image" onChange={handleImageChange} />
+                                <input type="file" id="icon" onChange={handleImageChange} />
                             </div>
                         </div>
                         {error && <p className="error">{error}</p>}
-                        <button type="submit" className="submit__button">Добавить</button>
+                        <button type="submit" className="submit__button">Сохранить</button>
                     </div>
                 </form>
             </div>
@@ -66,4 +73,4 @@ const AddCategoryModal: React.FC<IModal> = ({showModal, setShowModal, refresh, s
     );
 };
 
-export default AddCategoryModal;
+export default EditSocialLinkModal;

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: 'http://158.179.207.250/sensulu/api',
+    baseURL: 'https://api.sen-sulu.com/api',
     headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
     },
     withCredentials: true,
 });
