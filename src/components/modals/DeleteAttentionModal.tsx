@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {IModal} from "../../models/IModal.ts";
-import {IPopularItems} from "../../models/IPopularItems.ts";
-import {deletePopularItem} from "../../api/api.tsx";
+import {ICategory} from "../../models/ICategory.ts";
+import {deleteCategory} from "../../api/api.tsx";
 
-const DeletePopularItemModal: React.FC<IModal & {id: number, data: IPopularItems}> = ({showModal, setShowModal, data, refresh, setRefresh, id}) => {
+const DeleteNewsModal: React.FC<IModal & {id: number, data: ICategory}> = ({showModal, setShowModal, id, data, refresh, setRefresh}) => {
     const [error, setError] = useState<string | null>(null);
 
     const handleDelete = async (e: React.FormEvent) => {
@@ -11,7 +11,7 @@ const DeletePopularItemModal: React.FC<IModal & {id: number, data: IPopularItems
         if (!id) return;
         setError(null);
         try {
-            await deletePopularItem(id);
+            await deleteCategory(id);
             setShowModal(false);
             setRefresh(refresh + 1);
         } catch (err) {
@@ -24,7 +24,7 @@ const DeletePopularItemModal: React.FC<IModal & {id: number, data: IPopularItems
         <div onClick={() => setShowModal(false)} className={`modal__background ${showModal ? 'active' : ''}`}>
             <div className="delete__modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal__header">
-                    <h2>Удалить из популярных</h2>
+                    <h2>Удалить категорию</h2>
                     <button className="close__button" onClick={() => setShowModal(false)}>
                         <svg xmlns="http://www.w3.org/2000/svg" height="30px" width="30px" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -34,7 +34,7 @@ const DeletePopularItemModal: React.FC<IModal & {id: number, data: IPopularItems
                 <form onSubmit={handleDelete}>
                     <div className="modal__body">
                         <p>
-                            Вы уверены, что хотите удалить из карусели популярных товаров товар {data.title}?
+                            Вы уверены, что хотите удалить категорию {data.name}?
                         </p>
                         {error && <p className="error">{error}</p>}
                         <div className="buttons">
@@ -56,4 +56,4 @@ const DeletePopularItemModal: React.FC<IModal & {id: number, data: IPopularItems
     );
 };
 
-export default DeletePopularItemModal;
+export default DeleteNewsModal;
