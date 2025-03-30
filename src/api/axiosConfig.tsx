@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: 'https://api.sen-sulu.com/api',
+    baseURL: 'http://192.168.1.74/api',
     headers: {
         'Content-Type': 'multipart/form-data',
     },

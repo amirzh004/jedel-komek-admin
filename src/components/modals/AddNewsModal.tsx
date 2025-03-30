@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {IModal} from '../../models/IModal';
-import {createCategory} from "../../api/api.tsx";
+// import {createNews} from "../../api/api.tsx";
 
-const AddCategoryModal: React.FC<IModal> = ({showModal, setShowModal, refresh, setRefresh}) => {
-    const [name, setName] = useState('');
+const AddNewsModal: React.FC<IModal> = ({showModal, setShowModal, refresh, setRefresh}) => {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [date, setDate] = useState('');
     const [image, setImage] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -15,30 +17,30 @@ const AddCategoryModal: React.FC<IModal> = ({showModal, setShowModal, refresh, s
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('name', name);
-        if (image) {
-            formData.append('image', image);
-        }
+        // const formData = new FormData();
+        // formData.append('name', name);
+        // if (image) {
+        //     formData.append('image', image);
+        // }
 
-        try {
-            await createCategory(formData);
-            formData.forEach((value, key) => {
-                console.log(`${key}:`, value);
-            });
+        // try {
+        //     await createNews(formData);
+        //     formData.forEach((value, key) => {
+        //         console.log(`${key}:`, value);
+        //     });
             setShowModal(false);
-            setRefresh(refresh + 1);
-        } catch (error) {
-            console.error('Error editing category:', error);
-            setError('Ошибка редактирования категории');
-        }
+        //     setRefresh(refresh + 1);
+        // } catch (error) {
+        //     console.error('Error editing category:', error);
+        //     setError('Ошибка редактирования категории');
+        // }
     };
 
     return (
         <div onClick={() => setShowModal(false)} className={`modal__background ${showModal ? "active" : ""}`}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal__header">
-                    <h2>Редактировать категорию</h2>
+                    <h2>Добавить новость</h2>
                     <button className="close__button" onClick={() => setShowModal(false)}>
                         <svg xmlns="http://www.w3.org/2000/svg" height="30px" width="30px" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -49,7 +51,15 @@ const AddCategoryModal: React.FC<IModal> = ({showModal, setShowModal, refresh, s
                     <div className="modal__body">
                         <div className="input__container">
                             <label htmlFor="name">Название</label>
-                            <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Название" required />
+                            <input type="text" id="name" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Название" required />
+                        </div>
+                        <div className="input__container">
+                            <label htmlFor="name">Дата</label>
+                            <input type="text" id="name" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Дата" required />
+                        </div>
+                        <div className="input__container">
+                            <label htmlFor="name">Описание</label>
+                            <input type="text" id="name" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Описание" required />
                         </div>
                         <div className="input__container">
                             <label htmlFor="image">Фото</label>
@@ -66,4 +76,4 @@ const AddCategoryModal: React.FC<IModal> = ({showModal, setShowModal, refresh, s
     );
 };
 
-export default AddCategoryModal;
+export default AddNewsModal;

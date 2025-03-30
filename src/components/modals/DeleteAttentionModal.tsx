@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {IModal} from "../../models/IModal.ts";
 import {ICategory} from "../../models/ICategory.ts";
-import {deleteCategory} from "../../api/api.tsx";
+import {deleteAttention} from "../../api/api.tsx";
 
-const DeleteNewsModal: React.FC<IModal & {id: number, data: ICategory}> = ({showModal, setShowModal, id, data, refresh, setRefresh}) => {
+const DeleteAttentionModal: React.FC<IModal & {id: number, data: ICategory}> = ({showModal, setShowModal, id, data, refresh, setRefresh}) => {
     const [error, setError] = useState<string | null>(null);
 
     const handleDelete = async (e: React.FormEvent) => {
@@ -11,7 +11,7 @@ const DeleteNewsModal: React.FC<IModal & {id: number, data: ICategory}> = ({show
         if (!id) return;
         setError(null);
         try {
-            await deleteCategory(id);
+            await deleteAttention(id);
             setShowModal(false);
             setRefresh(refresh + 1);
         } catch (err) {
@@ -56,4 +56,4 @@ const DeleteNewsModal: React.FC<IModal & {id: number, data: ICategory}> = ({show
     );
 };
 
-export default DeleteNewsModal;
+export default DeleteAttentionModal;

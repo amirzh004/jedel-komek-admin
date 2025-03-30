@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {IModal} from "../../models/IModal.ts";
 import {ICategory} from "../../models/ICategory.ts";
-import {editCategory} from "../../api/api.tsx";
+import {editAttention} from "../../api/api.tsx";
 
-const EditNewsModal: React.FC<IModal & {id: number, data: ICategory}> = ({showModal, setShowModal, refresh, setRefresh, data, id}) => {
+const EditAttentionModal: React.FC<IModal & {id: number, data: ICategory}> = ({showModal, setShowModal, refresh, setRefresh, data, id}) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -29,7 +29,7 @@ const EditNewsModal: React.FC<IModal & {id: number, data: ICategory}> = ({showMo
         }
 
         try {
-            await editCategory(id, formData);
+            await editAttention(id, formData);
             formData.forEach((value, key) => {
                 console.log(`${key}:`, value);
             });
@@ -73,4 +73,4 @@ const EditNewsModal: React.FC<IModal & {id: number, data: ICategory}> = ({showMo
     );
 };
 
-export default EditNewsModal;
+export default EditAttentionModal;

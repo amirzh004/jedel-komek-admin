@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {IModal} from '../../models/IModal';
-import {createCategory} from "../../api/api.tsx";
+import {createEducation} from "../../api/api.tsx";
 
-const AddNewsModal: React.FC<IModal> = ({showModal, setShowModal, refresh, setRefresh}) => {
+const AddEducationalModal: React.FC<IModal> = ({showModal, setShowModal, refresh, setRefresh}) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -22,7 +22,7 @@ const AddNewsModal: React.FC<IModal> = ({showModal, setShowModal, refresh, setRe
         }
 
         try {
-            await createCategory(formData);
+            await createEducation(formData);
             formData.forEach((value, key) => {
                 console.log(`${key}:`, value);
             });
@@ -66,4 +66,4 @@ const AddNewsModal: React.FC<IModal> = ({showModal, setShowModal, refresh, setRe
     );
 };
 
-export default AddNewsModal;
+export default AddEducationalModal;
